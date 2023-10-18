@@ -1,0 +1,15 @@
+version: '3'
+services:
+  flarie-backend-db:
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '${TYPEORM_PORT}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${TYPEORM_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${TYPEORM_DATABASE}'
+      MYSQL_PASSWORD: '${TYPEORM_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - './data/learn_mysql:/var/lib/mysql'
+      - './docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
