@@ -1,10 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Res,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { AppService } from './app.service';
-
-interface CouponRedeemReqBody {
-  playerId: number;
-  couponId: number;
-}
+import { Response } from 'express';
+import { RedeemCouponDTO } from './app.dto';
+import { validationExceptionFactory } from './shared/exceptions/validation.exception';
 
 @Controller()
 export class AppController {
@@ -16,7 +22,17 @@ export class AppController {
   }
 
   @Post('coupon-redeem')
-  redeemCoupon(@Body() body: CouponRedeemReqBody): any {
+  @UsePipes(
+    new ValidationPipe({
+      whitelist: true,
+      exceptionFactory: validationExceptionFactory,
+    }),
+  )
+  redeemCoupon(
+    @Body() body: RedeemCouponDTO,
+    @Res({ passthrough: true }) res: Response,
+  ): any {
+    console.log('body: ', body);
     return { status: 'OK', ...body };
   }
 }
