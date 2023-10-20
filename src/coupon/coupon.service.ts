@@ -51,7 +51,7 @@ export class CouponService {
 
   async dailyUsageLimitReached(
     playerId: number,
-    perDayLimit: number,
+    reward: Reward,
   ): Promise<boolean> {
     const today = new Date();
 
@@ -59,9 +59,16 @@ export class CouponService {
       player: {
         id: playerId,
       },
+      coupon: {
+        Reward: {
+          id: reward.id,
+        },
+      },
       redeemedAt: Between(startOfDay(today), endOfDay(today)),
     });
 
-    return count >= perDayLimit;
+    console.table(2);
+
+    return count >= reward.perDayLimit;
   }
 }
