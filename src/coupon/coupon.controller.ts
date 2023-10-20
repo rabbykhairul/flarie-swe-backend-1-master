@@ -1,9 +1,9 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Post,
   Res,
-  UnprocessableEntityException,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -38,9 +38,15 @@ export class CouponController {
     const coupon = await this.couponService.findByIdWithReward(rewardId);
 
     if (!player)
-      throw new UnprocessableEntityException({
+      throw new BadRequestException({
         errorCode: errorCodes.PLAYER_NOT_FOUND.code,
         error: errorCodes.PLAYER_NOT_FOUND.description,
+      });
+
+    if (!coupon)
+      throw new BadRequestException({
+        errorCode: errorCodes.COUPON_NOT_FOUND.code,
+        error: errorCodes.COUPON_NOT_FOUND.description,
       });
 
     return { status: 'OK', player, coupon };
