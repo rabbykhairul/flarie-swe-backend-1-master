@@ -67,8 +67,29 @@ export class CouponService {
       redeemedAt: Between(startOfDay(today), endOfDay(today)),
     });
 
-    console.table(2);
-
     return count >= reward.perDayLimit;
+  }
+
+  async totalUsageLimitReached(
+    playerId: number,
+    reward: Reward,
+  ): Promise<boolean> {
+    const startDate = new Date(reward.startDate);
+    const endDate = new Date(reward.endDate);
+    
+
+    const count = await this.playerCoupon.countBy({
+      player: {
+        id: playerId,
+      },
+      coupon: {
+        Reward: {
+          id: reward.id,
+        },
+      },
+      redeemedAt: Between(startOfDay(startDate), endOfDay(endDate)),
+    });
+
+    return count >= reward.totalLimit;
   }
 }
