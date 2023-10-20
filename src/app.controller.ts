@@ -20,19 +20,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Post('coupon-redeem')
-  @UsePipes(
-    new ValidationPipe({
-      whitelist: true,
-      exceptionFactory: validationExceptionFactory,
-    }),
-  )
-  redeemCoupon(
-    @Body() body: CouponRedeemDto,
-    @Res({ passthrough: true }) res: Response,
-  ): any {
-    console.log('body: ', body);
-    return { status: 'OK', ...body };
-  }
 }
