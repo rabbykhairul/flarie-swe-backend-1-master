@@ -75,16 +75,14 @@ export class CouponController {
       });
 
     const totalUsageLimitReached =
-        await this.couponService.totalUsageLimitReached(
-          playerId,
-          coupon.Reward,
-        );
-      if (totalUsageLimitReached)
-        throw new BadRequestException({
-          errorCode: errorCodes.TOTAL_LIMIT_REACHED.code,
-          error: errorCodes.TOTAL_LIMIT_REACHED.description,
-        });
+      await this.couponService.totalUsageLimitReached(playerId, coupon.Reward);
+    if (totalUsageLimitReached)
+      throw new BadRequestException({
+        errorCode: errorCodes.TOTAL_LIMIT_REACHED.code,
+        error: errorCodes.TOTAL_LIMIT_REACHED.description,
+      });
 
-    return { expired, player, coupon };
+    await this.couponService.redeemCoupon(coupon, player);
+    return { id: coupon.id, value: coupon.value };
   }
 }

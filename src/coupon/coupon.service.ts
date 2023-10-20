@@ -76,7 +76,6 @@ export class CouponService {
   ): Promise<boolean> {
     const startDate = new Date(reward.startDate);
     const endDate = new Date(reward.endDate);
-    
 
     const count = await this.playerCoupon.countBy({
       player: {
@@ -91,5 +90,14 @@ export class CouponService {
     });
 
     return count >= reward.totalLimit;
+  }
+
+  async redeemCoupon(coupon: Coupon, player: Player): Promise<PlayerCoupon> {
+    const redeemCoupon = new PlayerCoupon();
+    redeemCoupon.coupon = coupon;
+    redeemCoupon.player = player;
+    redeemCoupon.redeemedAt = new Date();
+
+    return this.playerCoupon.save(redeemCoupon);
   }
 }
