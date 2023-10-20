@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Res,
+  UnprocessableEntityException,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -11,6 +12,7 @@ import { CouponRedeemDto } from 'src/dto/couponRedeem.dto';
 import { validationExceptionFactory } from 'src/shared/exceptions/validation.exception';
 import { CouponService } from './coupon.service';
 import { PlayerService } from 'src/player/player.service';
+import { errorCodes } from 'src/shared/errorCodes';
 
 @Controller()
 export class CouponController {
@@ -34,6 +36,12 @@ export class CouponController {
 
     const player = await this.playerService.findById(playerId);
     const coupon = await this.couponService.findByIdWithReward(rewardId);
+
+    if (!player)
+      throw new UnprocessableEntityException({
+        errorCode: errorCodes.PLAYER_NOT_FOUND.code,
+        error: errorCodes.PLAYER_NOT_FOUND.description,
+      });
 
     return { status: 'OK', player, coupon };
   }
