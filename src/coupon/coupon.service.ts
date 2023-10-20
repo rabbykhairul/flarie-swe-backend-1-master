@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { startOfDay, endOfDay } from 'date-fns';
 import { Coupon } from 'src/entities/Coupon';
 import { Player } from 'src/entities/Player';
 import { PlayerCoupon } from 'src/entities/PlayerCoupon';
 import { Reward } from 'src/entities/Reward';
-import { Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 
 @Injectable()
 export class CouponService {
@@ -46,5 +47,21 @@ export class CouponService {
     if (redeemedCoupon) return true;
 
     return false;
+  }
+
+  async dailyUsageLimitReached(
+    playerId: number,
+    perDayLimit: number,
+  ): Promise<boolean> {
+    const today = new Date();
+
+    const count = await this.playerCoupon.countBy({
+      player: {
+        id: playerId,
+      },
+      redeemedAt: Between(startOfDay(today), endOfDay(today)),
+    });
+
+    return count >= perDayLimit;
   }
 }
