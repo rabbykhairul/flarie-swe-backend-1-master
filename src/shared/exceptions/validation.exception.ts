@@ -1,4 +1,5 @@
 import { BadRequestException, ValidationError } from '@nestjs/common';
+import { errorCodes } from '../errorCodes';
 
 export class ValidationException extends BadRequestException {
   constructor(public validationErrors: Record<string, unknown>) {
@@ -15,8 +16,7 @@ export const validationExceptionFactory = (errors: ValidationError[]) => {
     return errMsg;
   };
   return new ValidationException({
-    message: 'Bad Request! Please use correct payload.',
-    statusCode: 400,
+    ...errorCodes.VALIDATION_ERROR,
     errors: formatError(errors),
   });
 };

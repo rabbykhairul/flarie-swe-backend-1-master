@@ -1,4 +1,9 @@
 export const errorCodes = {
+  VALIDATION_ERROR: {
+    code: 'VALIDATION_ERROR',
+    description: 'Bad Request! Please use correct payload.',
+  },
+
   PLAYER_NOT_FOUND: {
     code: 'PLAYER_NOT_FOUND',
     description: "Player doesn't exist!",
