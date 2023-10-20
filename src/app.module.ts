@@ -10,6 +10,7 @@ import { CouponController } from './coupon/coupon.controller';
 import { CouponService } from './coupon/coupon.service';
 import { Coupon } from './entities/Coupon';
 import { PlayerCoupon } from './entities/PlayerCoupon';
+import { PlayerService } from './player/player.service';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { PlayerCoupon } from './entities/PlayerCoupon';
     TypeOrmModule.forFeature([Player, Reward, Coupon, PlayerCoupon]),
   ],
   controllers: [AppController, CouponController],
-  providers: [AppService, CouponService],
+  providers: [AppService, CouponService, PlayerService],
 })
 export class AppModule {}
