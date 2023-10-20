@@ -7,13 +7,17 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { AppService } from 'src/app.service';
 import { CouponRedeemDto } from 'src/dto/couponRedeem.dto';
 import { validationExceptionFactory } from 'src/shared/exceptions/validation.exception';
+import { CouponService } from './coupon.service';
+import { PlayerService } from 'src/player/player.service';
 
 @Controller()
 export class CouponController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly couponService: CouponService,
+    private readonly playerService: PlayerService,
+  ) {}
 
   @Post('coupon-redeem')
   @UsePipes(
@@ -26,8 +30,11 @@ export class CouponController {
     @Body() body: CouponRedeemDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<any> {
-    console.log('body: ', body);
-    const players = await this.appService.getAllPlayers();
-    return { status: 'OK', ...body, players };
+    const { playerId, rewardId } = body;
+
+    const player = await this.playerService.findById(playerId);
+    const coupon = await this.couponService.findByIdWithReward(rewardId);
+
+    return { status: 'OK', player, coupon };
   }
 }
