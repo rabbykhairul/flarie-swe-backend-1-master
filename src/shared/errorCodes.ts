@@ -18,4 +18,10 @@ export const errorCodes = {
     code: 'COUPON_ALREADY_USED',
     description: 'Coupon had been already redeemed!',
   },
+
+  DAILY_LIMIT_REACHED: {
+    code: 'DAILY_LIMIT_REACHED',
+    description:
+      'You have reached the max redeem limit for today. Please try again tomorrow!',
+  },
 };
