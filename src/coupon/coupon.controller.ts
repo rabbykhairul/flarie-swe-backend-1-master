@@ -49,6 +49,13 @@ export class CouponController {
         error: errorCodes.COUPON_NOT_FOUND.description,
       });
 
-    return { status: 'OK', player, coupon };
+    const expired = this.couponService.isExpiredReward(coupon.Reward);
+    if (expired)
+      throw new BadRequestException({
+        errorCode: errorCodes.REWARD_EXPIRED,
+        error: errorCodes.REWARD_EXPIRED.description,
+      });
+
+    return { expired, player, coupon };
   }
 }
