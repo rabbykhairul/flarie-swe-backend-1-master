@@ -24,4 +24,9 @@ export const errorCodes = {
     description:
       'You have reached the max redeem limit for today. Please try again tomorrow!',
   },
+
+  TOTAL_LIMIT_REACHED: {
+    code: 'TOTAL_LIMIT_REACHED',
+    description: 'You have reached the total redeem limit!',
+  },
 };

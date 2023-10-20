@@ -65,7 +65,7 @@ export class CouponController {
         errorCode: errorCodes.COUPON_ALREADY_USED.code,
         error: errorCodes.COUPON_ALREADY_USED.description,
       });
-    
+
     const dailyUsageLimitReached =
       await this.couponService.dailyUsageLimitReached(playerId, coupon.Reward);
     if (dailyUsageLimitReached)
@@ -73,6 +73,17 @@ export class CouponController {
         errorCode: errorCodes.DAILY_LIMIT_REACHED.code,
         error: errorCodes.DAILY_LIMIT_REACHED.description,
       });
+
+    const totalUsageLimitReached =
+        await this.couponService.totalUsageLimitReached(
+          playerId,
+          coupon.Reward,
+        );
+      if (totalUsageLimitReached)
+        throw new BadRequestException({
+          errorCode: errorCodes.TOTAL_LIMIT_REACHED.code,
+          error: errorCodes.TOTAL_LIMIT_REACHED.description,
+        });
 
     return { expired, player, coupon };
   }
