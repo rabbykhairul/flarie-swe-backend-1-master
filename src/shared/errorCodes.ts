@@ -13,4 +13,9 @@ export const errorCodes = {
     code: 'REWARD_EXPIRED',
     description: 'The reward campaign has ended!',
   },
+
+  COUPON_ALREADY_USED: {
+    code: 'COUPON_ALREADY_USED',
+    description: 'Coupon had been already redeemed!',
+  },
 };

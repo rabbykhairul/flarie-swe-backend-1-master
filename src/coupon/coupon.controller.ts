@@ -56,6 +56,16 @@ export class CouponController {
         error: errorCodes.REWARD_EXPIRED.description,
       });
 
+    const redeemedBefore = await this.couponService.couponAlreadyRedeemed(
+      rewardId,
+      playerId,
+    );
+    if (redeemedBefore)
+      throw new BadRequestException({
+        errorCode: errorCodes.COUPON_ALREADY_USED.code,
+        error: errorCodes.COUPON_ALREADY_USED.description,
+      });
+
     return { expired, player, coupon };
   }
 }
