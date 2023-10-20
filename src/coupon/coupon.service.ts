@@ -24,4 +24,12 @@ export class CouponService {
       },
     });
   }
+
+  isExpiredReward(reward: Reward) {
+    const today = new Date();
+    const startDate = new Date(reward.startDate);
+    const endDate = new Date(reward.endDate);
+
+    return !(startDate <= today && endDate >= today);
+  }
 }
