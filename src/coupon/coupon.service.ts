@@ -32,4 +32,19 @@ export class CouponService {
 
     return !(startDate <= today && endDate >= today);
   }
+
+  async couponAlreadyRedeemed(id: number, playerId: number): Promise<boolean> {
+    const redeemedCoupon = await this.playerCoupon.findOneBy({
+      coupon: {
+        id,
+      },
+      player: {
+        id: playerId,
+      },
+    });
+
+    if (redeemedCoupon) return true;
+
+    return false;
+  }
 }
