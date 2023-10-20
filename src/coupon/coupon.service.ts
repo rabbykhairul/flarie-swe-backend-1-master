@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { startOfDay, endOfDay } from 'date-fns';
-import { Coupon } from 'src/entities/Coupon';
-import { Player } from 'src/entities/Player';
-import { PlayerCoupon } from 'src/entities/PlayerCoupon';
-import { Reward } from 'src/entities/Reward';
+import { Coupon } from '../entities/Coupon';
+import { Player } from '../entities/Player';
+import { PlayerCoupon } from '../entities/PlayerCoupon';
+import { Reward } from '../entities/Reward';
 import { Between, Repository } from 'typeorm';
 
 @Injectable()

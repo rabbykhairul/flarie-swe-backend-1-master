@@ -8,11 +8,11 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { CouponRedeemDto } from 'src/dto/couponRedeem.dto';
-import { validationExceptionFactory } from 'src/shared/exceptions/validation.exception';
+import { CouponRedeemDto } from '../dto/couponRedeem.dto';
+import { validationExceptionFactory } from '../shared/exceptions/validation.exception';
 import { CouponService } from './coupon.service';
-import { PlayerService } from 'src/player/player.service';
-import { errorCodes } from 'src/shared/errorCodes';
+import { PlayerService } from '../player/player.service';
+import { errorCodes } from '../shared/errorCodes';
 
 @Controller()
 export class CouponController {
