@@ -1,5 +1,10 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+
+interface CouponRedeemReqBody {
+  playerId: number;
+  couponId: number;
+}
 
 @Controller()
 export class AppController {
@@ -11,8 +16,7 @@ export class AppController {
   }
 
   @Post('coupon-redeem')
-  redeemCoupon(@Req() request: Request): any {
-    const body = request.body;
+  redeemCoupon(@Body() body: CouponRedeemReqBody): any {
     return { status: 'OK', ...body };
   }
 }
