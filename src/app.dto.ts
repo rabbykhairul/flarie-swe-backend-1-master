@@ -1,7 +1,7 @@
 import { IsNumber } from 'class-validator';
 
 export class RedeemCouponDTO {
-  @IsNumber({}, { groups: ['playerId'] })
+  @IsNumber()
   playerId: number;
 
   @IsNumber()
