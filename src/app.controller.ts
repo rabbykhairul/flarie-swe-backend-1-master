@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
-import { RedeemCouponDTO } from './app.dto';
 import { validationExceptionFactory } from './shared/exceptions/validation.exception';
+import { RedeemCouponDTO } from './dto/redeem-coupon.dto';
 
 @Controller()
 export class AppController {
