@@ -10,7 +10,7 @@ import {
 import { AppService } from './app.service';
 import { Response } from 'express';
 import { validationExceptionFactory } from './shared/exceptions/validation.exception';
-import { RedeemCouponDTO } from './dto/redeem-coupon.dto';
+import { CouponRedeemDto } from './dto/couponRedeem.dto';
 
 @Controller()
 export class AppController {
@@ -29,7 +29,7 @@ export class AppController {
     }),
   )
   redeemCoupon(
-    @Body() body: RedeemCouponDTO,
+    @Body() body: CouponRedeemDto,
     @Res({ passthrough: true }) res: Response,
   ): any {
     console.log('body: ', body);
