@@ -46,12 +46,23 @@ const seedCoupons = async () => {
   `);
 };
 
+const seedPlayers = async () => {
+  await connectionSource.createQueryRunner().query(`
+  INSERT INTO player (name)
+  VALUE
+    ('Khairul'),
+    ('Rakib'),
+    ('Mosabbir')
+  `);
+};
+
 const seedDb = async () => {
   await connectionSource.dropDatabase();
   await connectionSource.synchronize();
 
   await seedRewards();
   await seedCoupons();
+  await seedPlayers();
 };
 
 export const seedTestDb = async () => {
