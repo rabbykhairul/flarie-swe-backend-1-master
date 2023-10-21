@@ -71,7 +71,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   it("Should fail if the player doesn't exist", async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
-      .send({ playerId: 3, rewardId: 1 })
+      .send({ playerId: 4, rewardId: 1 })
       .expect(400);
 
     expect(body).toMatchObject({
@@ -82,7 +82,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   it("Should fail if the reward coupon doesn't exist", async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
-      .send({ playerId: 1, rewardId: 11 })
+      .send({ playerId: 1, rewardId: 13 })
       .expect(400);
 
     expect(body).toMatchObject({
@@ -127,7 +127,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   it('Should fail if the user has reached his daily redeem usage limit', async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
-      .send({ playerId: 1, rewardId: 2 })
+      .send({ playerId: 1, rewardId: 10 })
       .expect(400);
 
     expect(body).toMatchObject({
@@ -138,7 +138,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   it('Should fail if the user has reached his total redeem usage limit', async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
-      .send({ playerId: 1, rewardId: 10 })
+      .send({ playerId: 1, rewardId: 12 })
       .expect(400);
 
     expect(body).toMatchObject({
