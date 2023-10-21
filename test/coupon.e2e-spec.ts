@@ -111,6 +111,17 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
+  it('Should fail to redeem already used reward coupon', async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1, rewardId: 1 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      errorCode: errorCodes.COUPON_ALREADY_USED.code,
+    });
+  });
+
   afterAll(async () => {
     const entities = connectionSource.entityMetadatas;
 
