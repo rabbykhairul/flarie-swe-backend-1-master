@@ -18,10 +18,12 @@ export class SeedPlayerCoupons1697883149885 implements MigrationInterface {
     await queryRunner.query(`
           INSERT INTO player_coupon (redeemedAt, playerId, couponId)
           VALUES
-          ${playerCoupons.map(
-            ({ redeemedAt, Player, Coupon }) =>
-              `('${redeemedAt}', '${Player.id}', '${Coupon.id}')`,
-          )}
+          ${playerCoupons
+            .map(
+              ({ redeemedAt, Player, Coupon }) =>
+                `('${redeemedAt}', '${Player.id}', '${Coupon.id}')`,
+            )
+            .join(',')}
           `);
   }
 
