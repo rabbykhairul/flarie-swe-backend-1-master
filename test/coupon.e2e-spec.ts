@@ -122,6 +122,17 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
+  it('Should fail if daily redeem usage limit reached', async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1, rewardId: 2 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      errorCode: errorCodes.DAILY_LIMIT_REACHED.code,
+    });
+  });
+
   afterAll(async () => {
     const entities = connectionSource.entityMetadatas;
 
