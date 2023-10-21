@@ -33,7 +33,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
       .expect(400);
 
     expect(body).toMatchObject({
-      code: errorCodes.VALIDATION_ERROR.code,
+      errorCode: errorCodes.VALIDATION_ERROR.code,
       errors: expect.objectContaining({
         playerId: expect.any(Array),
       }),
@@ -47,7 +47,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
       .expect(400);
 
     expect(body).toMatchObject({
-      code: errorCodes.VALIDATION_ERROR.code,
+      errorCode: errorCodes.VALIDATION_ERROR.code,
       errors: expect.objectContaining({
         rewardId: expect.any(Array),
       }),
@@ -61,7 +61,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
       .expect(400);
 
     expect(body).toMatchObject({
-      code: errorCodes.VALIDATION_ERROR.code,
+      errorCode: errorCodes.VALIDATION_ERROR.code,
       errors: expect.any(Object),
     });
   });
