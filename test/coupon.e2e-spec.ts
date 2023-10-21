@@ -40,6 +40,20 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
+  it("Should fail if the paylod doesn't include 'rewardId' field", async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      code: errorCodes.VALIDATION_ERROR.code,
+      errors: expect.objectContaining({
+        rewardId: expect.any(Array),
+      }),
+    });
+  });
+
   afterAll(async () => {
     const entities = connectionSource.entityMetadatas;
 
