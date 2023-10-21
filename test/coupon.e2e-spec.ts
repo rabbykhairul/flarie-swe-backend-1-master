@@ -5,15 +5,15 @@ import { AppModule } from './../src/app.module';
 import { connectionSource } from '../src/typeorm';
 import { DataSource } from 'typeorm';
 
-describe('CouponController (e2e)', () => {
+describe('Coupon redeem endpoint (e2e)', () => {
   let app: INestApplication;
   let connection: DataSource;
 
+  const COUPON_REDEEM_ENPOINT = '/coupon-redeem';
+
   beforeAll(async function setUpDbConnection() {
     connection = await connectionSource.initialize();
-  });
 
-  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -38,7 +38,7 @@ describe('CouponController (e2e)', () => {
         await repo.clear();
       }
     }
-    await connection.destroy();
     await app.close();
+    await connection.destroy();
   });
 });
