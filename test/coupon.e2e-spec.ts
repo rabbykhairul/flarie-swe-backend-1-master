@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { connectionSource } from '../src/typeorm';
 import { DataSource } from 'typeorm';
+import { errorCodes } from '../src/shared/errorCodes';
 
 describe('Coupon redeem endpoint (e2e)', () => {
   let app: INestApplication;
@@ -23,6 +24,20 @@ describe('Coupon redeem endpoint (e2e)', () => {
     await app.init();
 
     server = request(app.getHttpServer());
+  });
+
+  it("Should fail if the paylod doesn't include 'playerId' field", async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ couponId: 1 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      code: errorCodes.VALIDATION_ERROR.code,
+      errors: expect.objectContaining({
+        playerId: expect.any(Array),
+      }),
+    });
   });
 
   afterAll(async () => {
