@@ -52,7 +52,7 @@ export class CouponController {
     const expired = this.couponService.isExpiredReward(coupon.Reward);
     if (expired)
       throw new BadRequestException({
-        errorCode: errorCodes.REWARD_EXPIRED,
+        errorCode: errorCodes.REWARD_EXPIRED.code,
         error: errorCodes.REWARD_EXPIRED.description,
       });
 
