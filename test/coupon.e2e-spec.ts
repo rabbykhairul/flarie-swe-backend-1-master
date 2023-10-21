@@ -99,6 +99,18 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
+  it('Should redeem coupon successfully', async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1, rewardId: 1 })
+      .expect(201);
+
+    expect(body).toMatchObject({
+      id: expect.any(Number),
+      value: expect.any(String),
+    });
+  });
+
   afterAll(async () => {
     const entities = connectionSource.entityMetadatas;
 
