@@ -36,7 +36,7 @@ export const seedCoupons = [
   {
     id: 7,
     value: 'Apple watch SE',
-    Reward: seedRewardCampigns[0],
+    Reward: seedRewardCampigns[1],
   },
 ];
 
