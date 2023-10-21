@@ -5,16 +5,18 @@ import { AppModule } from './../src/app.module';
 import { connectionSource } from '../src/typeorm';
 import { DataSource } from 'typeorm';
 import { errorCodes } from '../src/shared/errorCodes';
+import { seedTestDb } from '../seed/test/seeder';
 
 describe('Coupon redeem endpoint (e2e)', () => {
   let app: INestApplication;
-  let connection: DataSource;
+  let dbConnection: DataSource;
   let server: request.SuperTest<request.Test>;
 
   const COUPON_REDEEM_ENPOINT = '/coupon-redeem';
 
-  beforeAll(async function setUpDbConnection() {
-    connection = await connectionSource.initialize();
+  beforeAll(async () => {
+    dbConnection = await connectionSource.initialize();
+    await seedTestDb();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -145,15 +147,8 @@ describe('Coupon redeem endpoint (e2e)', () => {
   });
 
   afterAll(async () => {
-    const entities = connectionSource.entityMetadatas;
-
-    for (let entity of entities) {
-      if (entity.name === 'PlayerCoupon') {
-        const repo = connection.getRepository(entity.name);
-        await repo.clear();
-      }
-    }
+    // await dbConnection.dropDatabase();
+    await dbConnection.destroy();
     await app.close();
-    await connection.destroy();
   });
 });
