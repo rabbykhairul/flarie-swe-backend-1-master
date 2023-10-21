@@ -15,7 +15,11 @@ describe('Coupon redeem endpoint (e2e)', () => {
   const COUPON_REDEEM_ENPOINT = '/coupon-redeem';
 
   beforeAll(async () => {
-    dbConnection = await connectionSource.initialize();
+    while (!connectionSource.isInitialized) {
+      try {
+        dbConnection = await connectionSource.initialize();
+      } catch (err) {}
+    }
     await seedTestDb();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
