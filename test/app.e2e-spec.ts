@@ -9,9 +9,11 @@ describe('AppController (e2e)', () => {
   let app: INestApplication;
   let connection: DataSource;
 
-  beforeEach(async () => {
+  beforeAll(async function setUpDbConnection() {
     connection = await connectionSource.initialize();
+  });
 
+  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
