@@ -5,8 +5,9 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 const startDate = new Date();
 const endDate = addDays(startDate, 7);
 
-const rewardCampigns = [
+export const seedRewardCampigns = [
   {
+    id: 1,
     name: 'DiGiCell Eid Rewards',
     startDate,
     endDate,
@@ -14,6 +15,7 @@ const rewardCampigns = [
     totalLimit: 21,
   },
   {
+    id: 2,
     name: 'Summer dicsounts (expired)',
     startDate: subDays(startDate, 8),
     endDate: subDays(startDate, 1),
@@ -25,7 +27,7 @@ const rewardCampigns = [
 export class SeedRewards1697881836519 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const repository = connectionSource.getRepository('Reward');
-    for (let reward of rewardCampigns) {
+    for (let reward of seedRewardCampigns) {
       await repository.save(reward);
     }
   }
