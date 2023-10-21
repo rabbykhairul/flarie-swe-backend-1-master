@@ -8,6 +8,7 @@ import { DataSource } from 'typeorm';
 describe('Coupon redeem endpoint (e2e)', () => {
   let app: INestApplication;
   let connection: DataSource;
+  let server: request.SuperTest<request.Test>;
 
   const COUPON_REDEEM_ENPOINT = '/coupon-redeem';
 
@@ -20,13 +21,8 @@ describe('Coupon redeem endpoint (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-  });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+    server = request(app.getHttpServer());
   });
 
   afterAll(async () => {
