@@ -23,7 +23,26 @@ const seedRewards = async () => {
     ('Fall rewards (total limit reached)', '${format(
       startDate,
       'y-M-d HH:mm:ss',
-    )}', '${format(endDate, 'y-M-d HH:mm:ss')}', '3', '1')
+    )}', '${format(endDate, 'y-M-d HH:mm:ss')}', '3', '0')
+  `);
+};
+
+const seedCoupons = async () => {
+  await connectionSource.createQueryRunner().query(`
+  INSERT INTO coupon (value, rewardId)
+  VALUES
+    ('Air ticket', '1'),
+    ('Nike shoes', '1'),
+    ('Apple watch SE', '1'),
+    ('iPhone 13 pro', '1'),
+    ('T-shirt', '1'),
+    ('Fossil watch', '1'),
+    ('Joggers', '1'),
+    ('Running shoes', '1'),
+    ('Fossil watch', '2'),
+    ('30% discount', '3'),
+    ('Water bottle', '4'),
+    ('Air ticket', '4')
   `);
 };
 
@@ -32,6 +51,7 @@ const seedDb = async () => {
   await connectionSource.synchronize();
 
   await seedRewards();
+  await seedCoupons();
 };
 
 export const seedTestDb = async () => {
