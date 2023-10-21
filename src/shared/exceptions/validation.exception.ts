@@ -16,7 +16,8 @@ export const validationExceptionFactory = (errors: ValidationError[]) => {
     return errMsg;
   };
   return new ValidationException({
-    ...errorCodes.VALIDATION_ERROR,
+    errorCode: errorCodes.VALIDATION_ERROR.code,
+    error: errorCodes.VALIDATION_ERROR.description,
     errors: formatError(errors),
   });
 };
