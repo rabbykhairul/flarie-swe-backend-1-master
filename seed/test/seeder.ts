@@ -57,9 +57,8 @@ const seedPlayers = async () => {
 };
 
 const seedDb = async () => {
-  await connectionSource.dropDatabase();
-  await connectionSource.synchronize();
-
+  await connectionSource.synchronize(true);
+  
   await seedRewards();
   await seedCoupons();
   await seedPlayers();

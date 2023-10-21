@@ -147,7 +147,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   });
 
   afterAll(async () => {
-    // await dbConnection.dropDatabase();
+    await dbConnection.dropDatabase();
     await dbConnection.destroy();
     await app.close();
   });
