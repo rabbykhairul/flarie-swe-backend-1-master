@@ -80,7 +80,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
   it("Should fail if the reward coupon doesn't exist", async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
-      .send({ playerId: 1, rewardId: 10 })
+      .send({ playerId: 1, rewardId: 11 })
       .expect(400);
 
     expect(body).toMatchObject({
@@ -122,7 +122,7 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
-  it('Should fail if daily redeem usage limit reached', async () => {
+  it('Should fail if the user has reached his daily redeem usage limit', async () => {
     const { body } = await server
       .post(COUPON_REDEEM_ENPOINT)
       .send({ playerId: 1, rewardId: 2 })
@@ -130,6 +130,17 @@ describe('Coupon redeem endpoint (e2e)', () => {
 
     expect(body).toMatchObject({
       errorCode: errorCodes.DAILY_LIMIT_REACHED.code,
+    });
+  });
+
+  it('Should fail if the user has reached his total redeem usage limit', async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1, rewardId: 10 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      errorCode: errorCodes.TOTAL_LIMIT_REACHED.code,
     });
   });
 
