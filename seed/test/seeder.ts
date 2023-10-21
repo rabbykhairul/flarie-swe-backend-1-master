@@ -67,9 +67,7 @@ const seedDb = async () => {
 
 export const seedTestDb = async () => {
   try {
-    console.log('Seeding DB....');
     await seedDb();
-    console.log('Done!');
   } catch (err) {
     console.log(err);
   }
