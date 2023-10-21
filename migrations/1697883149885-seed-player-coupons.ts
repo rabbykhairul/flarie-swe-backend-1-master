@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 import { connectionSource } from '../src/typeorm';
 import { seedPlayers } from './1697882971586-seed-players';
 import { seedCoupons } from './1697882391716-seed-coupons';
-import { format, formatISO } from 'date-fns';
+import { format } from 'date-fns';
 
 const playerCoupons = [
   {
@@ -23,11 +23,6 @@ export class SeedPlayerCoupons1697883149885 implements MigrationInterface {
               `('${redeemedAt}', '${Player.id}', '${Coupon.id}')`,
           )}
           `);
-    //   const data = repository.create();
-    //   for (let k in coupon) {
-    //     data[k] = coupon[k];
-    //   }
-    //   await repository.save(data);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {}
