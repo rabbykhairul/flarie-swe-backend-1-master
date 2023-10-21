@@ -77,6 +77,17 @@ describe('Coupon redeem endpoint (e2e)', () => {
     });
   });
 
+  it("Should fail if the reward coupon doesn't exist", async () => {
+    const { body } = await server
+      .post(COUPON_REDEEM_ENPOINT)
+      .send({ playerId: 1, rewardId: 10 })
+      .expect(400);
+
+    expect(body).toMatchObject({
+      errorCode: errorCodes.COUPON_NOT_FOUND.code,
+    });
+  });
+
   afterAll(async () => {
     const entities = connectionSource.entityMetadatas;
 
